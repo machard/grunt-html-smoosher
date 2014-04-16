@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 
       grunt.log.writeln('Reading: ' + path.resolve(filePair.src.toString()));
 
-      $('link[rel="stylesheet"]').each(function () {
+      $('link[rel="stylesheet"]:not([data-skipsmoosher])').each(function () {
         var style = $(this).attr('href');
         if(!style) { return; }
         if(style.match(/^\/\//)) { return; }
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
       });
 
-      $('script').each(function () {
+      $('script:not([data-skipsmoosher])').each(function () {
         var script = $(this).attr('src');
         if(!script) { return; }
         if(script.match(/^\/\//)) { return; }
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
         $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
       });
 
-      $('img').each(function () {
+      $('img:not([data-skipsmoosher])').each(function () {
         var src = $(this).attr('src');
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
